@@ -17,4 +17,12 @@
 
 # Episode 2
 
+- Initialize `git` into your Project.
+- Create a `.gitignore` file and add `node_modules` folder to it.
+- Create a remote repository on `github`.
+- Push all your code to remote origin.
+- Play with Routes and Route Extensions. eg: `/hello` , `/hello/2`, `/xyz` and so on...
+- Order of `Routes` matter a lot.
+- Install Postman App make a `workspace/collection` -> test API call.
+- Write Logic to handle `GET` `POST` `PATCH` `PUT` `DELETE` API calls and test them on Postman.
 - 

@@ -25,4 +25,7 @@
 - Order of `Routes` matter a lot.
 - Install Postman App make a `workspace/collection` -> test API call.
 - Write Logic to handle `GET` `POST` `PATCH` `PUT` `DELETE` API calls and test them on Postman.
-- 
+- Explore Different Types of Routing and use of `?`,`+`,`*`,`()` in the Routes.
+- Use of `regex` in routes like : `/a/`,`/.*fly$`.
+- Reading the `query params` in the routes.
+- Practice Handling `Dynamic` Routes.

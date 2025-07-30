@@ -1,49 +1,38 @@
 const express=require("express");
-const {adminAuth}=require("./middlewares/adminAuth");
-const{userAuth}=require("./middlewares/userAuth")
 
 const app=express();
 
 const PORT=5555;
 
-// Handle Auth Middleware for all Requests.
-app.use("/admin",adminAuth) 
+app.use("/",(err,req,res,next)=>{
+        
+    if(err)
+    {
+        // Log Your Errors
+        res.status(500).send("Something went Wrong");
+    }
 
-// Admin Routes
-app.get("/admin/getAllData",(req,res)=>{
-
-    res.send("All Data Sent Successfully...");
 })
+app.get('/getUserData',(req,res)=>{
+     try{
+     // Logic of DB call and get user data
 
-app.delete("/admin/deleteUser",(req,res)=>{
-    
-    res.send("User Deleted Successfully...")
-})
+     throw new Error("sdhfjhdsajkl");
+     res.send("User Data Sent");
+     }catch(err){
+        res.status(500).send("Unexpected Error Occured Try Again After some Time");
+     }
 
-// User Routes
+});
 
-// Handle Auth Middleware for all Requests
+app.use("/",(err,req,res,next)=>{
+        
+    if(err)
+    {
+        // Log Your Errors
+        res.status(500).send("Something went Wrong");
+    }
 
-// app.use("/user",userAuth)
-// Get user or Fetch user
-app.get("/user",userAuth,(req,res)=>{
-
-    res.send("User Fetched Successfully...")
-})
-// Add a user
-app.post("/user",userAuth,(req,res)=>{
-
-    res.send("User Added Successfully...")
-})
-// Update the user
-app.patch("/user",userAuth,(req,res)=>{
-
-    res.send("User Updated Successfully...")
-})
-// Delete a User
-app.delete("/user",userAuth,(req,res)=>{
-
-    res.send("User Deleted Successfully...")
 })
 app.listen(PORT,(req,res)=>{
     console.log(`Server is Successfully listening on PORT ${PORT}`);

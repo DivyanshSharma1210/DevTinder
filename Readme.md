@@ -29,3 +29,21 @@
 - Use of `regex` in routes like : `/a/`,`/.*fly$`.
 - Reading the `query params` in the routes.
 - Practice Handling `Dynamic` Routes.
+
+# Episode 3
+
+# If we don't send response back to the client then the request will be left hanging.
+# If we have multiple route handlers and if we want to call or execute other route handlers using next and if we send back the reponse in every route handler then in that case the response of the first route handler will sent back to the client and along with that a error is also thrown in the console as shown below:\
+
+`Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client`
+
+- Multiple Route Handlers - Play with the code.
+- What the hell is `next()` function in route  Handler.
+- `next()` function with errors along with `res.send`.
+- You have to Practice the below syntax:
+- ` app.use("/route",rh1,rh2,rh3,rh4,rh5)`.
+- ` app.use("/route",[rh1,rh2,rh3,rh4,rh5])`.
+- ` app.use("/route",[rh1,rh2,rh3,rh4],rh5)`.
+- ` app.use("/route",[rh1,rh2,rh3],rh4,rh5)`.
+- ` app.use("/route",[rh1,rh2],rh3,rh4,rh5)`.
+- ` app.use("/route",[rh1],rh2,rh3,rh4,rh5)`.

@@ -1,41 +1,50 @@
 const express=require("express");
+const {adminAuth}=require("./middlewares/adminAuth");
+const{userAuth}=require("./middlewares/userAuth")
 
 const app=express();
 
 const PORT=5555;
 
-// app.use("/route",[rh1,rh2],rh3,rh4,rh5)
-app.use('/user',[(req,res,next)=>{
-    // Route handler 
-    console.log("Handling the Route user...");
-    // res.send("1st Response...");
-    next()
-},
-(req,res,next)=>{
-      // Route Handler 2
-     console.log("Handling the Route user 2...");
-    //  res.send("2nd Response...");
-    next();
+// Handle Auth Middleware for all Requests.
+app.use("/admin",adminAuth) 
 
-}],
-(req,res,next)=>{
-    // Route Handler 3
-    console.log("Handling the Route user 3...");
-    // res.send("3rd Response...");
-    next()
-},
-(req,res,next)=>{
-    // Route Handler 4
-    console.log("Handing the Route User 4...");
-    // res.send("4th Response...");
-    next()
-},
-(req,res,next)=>{
-    // Route Handler 5
-    console.log("Handling the Route User 5...");
-    res.send("5th Response...");
+// Admin Routes
+app.get("/admin/getAllData",(req,res)=>{
+
+    res.send("All Data Sent Successfully...");
 })
 
+app.delete("/admin/deleteUser",(req,res)=>{
+    
+    res.send("User Deleted Successfully...")
+})
+
+// User Routes
+
+// Handle Auth Middleware for all Requests
+
+// app.use("/user",userAuth)
+// Get user or Fetch user
+app.get("/user",userAuth,(req,res)=>{
+
+    res.send("User Fetched Successfully...")
+})
+// Add a user
+app.post("/user",userAuth,(req,res)=>{
+
+    res.send("User Added Successfully...")
+})
+// Update the user
+app.patch("/user",userAuth,(req,res)=>{
+
+    res.send("User Updated Successfully...")
+})
+// Delete a User
+app.delete("/user",userAuth,(req,res)=>{
+
+    res.send("User Deleted Successfully...")
+})
 app.listen(PORT,(req,res)=>{
     console.log(`Server is Successfully listening on PORT ${PORT}`);
 })

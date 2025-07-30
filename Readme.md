@@ -47,3 +47,15 @@
 - ` app.use("/route",[rh1,rh2,rh3],rh4,rh5)`.
 - ` app.use("/route",[rh1,rh2],rh3,rh4,rh5)`.
 - ` app.use("/route",[rh1],rh2,rh3,rh4,rh5)`.
+- What is a `Route Hander`?
+- What is a `Middleware`? Why do we need it?
+- How Express JS basically handles requests behind the scenes?
+- Difference between `Route Handler` and a `Middleware`.
+
+# By default `res.send()` sends 200 as a status code if you want to send other status code you can set it using `res.status`.
+
+- What is the use case of `app.all()`?
+- What is the use case of `app.use()`?
+- What is the Difference between `app.use()` and `app.all()`?
+- Write a dummy `auth` middleware for `admin`?
+- Write a dummy `auth` middleware for all `user` routes except `/user/login`?

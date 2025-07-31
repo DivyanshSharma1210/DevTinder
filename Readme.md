@@ -60,3 +60,14 @@
 - Write a dummy `auth` middleware for `admin`?
 - Write a dummy `auth` middleware for all `user` routes except `/user/login`?
 - Error Handling using `app.use('/',(err,req,res,next)=>{});`.
+
+# Episode 4
+- Create a free`clutser` on the official `MongoDB` Website.
+- Install `mongoose` library.
+- Connect your Application to the Database `"Connection-url"/DevTinder`.
+- Call the `ConnectDb` function and connect to database before Starting application on `PORT`.
+- Create a `userSchema` and `User` Model.
+- Create a `POST` `/signup` route to add user data to the Database.
+- Push some `users` using `/signup` APi using Postman.
+- What is the Purpose of `_v` field in the Mongodb Collection.
+- Do Error Handling using `try`,`catch`.

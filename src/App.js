@@ -1,39 +1,43 @@
 const express=require("express");
-
+const {connectDB}=require('./config/database.js');
+const User=require("./models/user.js");
 const app=express();
 
 const PORT=5555;
 
-app.use("/",(err,req,res,next)=>{
-        
-    if(err)
-    {
-        // Log Your Errors
-        res.status(500).send("Something went Wrong");
-    }
 
-})
-app.get('/getUserData',(req,res)=>{
-     try{
-     // Logic of DB call and get user data
 
-     throw new Error("sdhfjhdsajkl");
-     res.send("User Data Sent");
-     }catch(err){
-        res.status(500).send("Unexpected Error Occured Try Again After some Time");
-     }
+connectDB().then(()=>{
 
+    console.log("Database Connected Successfully...")
+    app.listen(PORT,(req,res)=>{
+        console.log(`Server is Successfully listening on PORT ${PORT}`);
+    });
+}).catch(err=>{
+       
+   console.error("Database Cannot be connected!!");
 });
 
-app.use("/",(err,req,res,next)=>{
-        
-    if(err)
-    {
-        // Log Your Errors
-        res.status(500).send("Something went Wrong");
-    }
+// Add a new User
+app.post("/signup",async (req,res)=>{
+     
+    const userObj={
+        firstName:"Gaurav",
+        lastName:"Sharma",
+        age:21,
+        gender:"Male",
+        emailID:"gaurav@gmail.com",
+        password:"gaurav@123"
+    };
 
-})
-app.listen(PORT,(req,res)=>{
-    console.log(`Server is Successfully listening on PORT ${PORT}`);
-})
+     // Creating new instance of the User Model.
+    const user=new User(userObj);
+
+    try{
+        await user.save();
+    res.send("User Created Successfully...");
+    }
+    catch(err){
+        res.status(400).send("Error Saving the User :"+err.message);
+    }
+});

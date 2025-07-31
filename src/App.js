@@ -5,6 +5,8 @@ const app=express();
 
 const PORT=5555;
 
+// Middleware to convert incoming JSON to JS Object.
+app.use(express.json())
 
 
 connectDB().then(()=>{
@@ -17,18 +19,58 @@ connectDB().then(()=>{
        
    console.error("Database Cannot be connected!!");
 });
+//  Feed API => GET /feed => Fetch all users from the Database
 
-// Add a new User
+app.get("/feed",async(req,res)=>{
+
+    try{
+        const feed=await User.find({});
+        if(feed.length===0)
+        {
+            res.send(404).send("Users not found");
+        }
+        else{
+            
+            res.send(feed);
+        }
+    
+    }
+    catch(err)
+    {
+        res.status(400).send("Something went wrong...");
+    }
+    
+})
+
+// Get user by emailID
+
+app.get("/user",async(req,res)=>{
+
+    const userEmail=req.body.emailID;
+
+    try{
+       const fetchedUser= await User.findOne({emailID:userEmail});
+       if(!fetchedUser)
+       {
+        res.status(404).send("User not found...");
+       }
+       else
+       res.send(fetchedUser);
+    }
+    catch(err)
+    {
+        res.status(400).send("Something Went Wrong...");
+    }
+    
+
+
+
+})
+// Add a new user
 app.post("/signup",async (req,res)=>{
      
-    const userObj={
-        firstName:"Gaurav",
-        lastName:"Sharma",
-        age:21,
-        gender:"Male",
-        emailID:"gaurav@gmail.com",
-        password:"gaurav@123"
-    };
+    console.log(req.body);
+    const userObj={firstName,lastName,age,gender,emailID,password}=req.body;
 
      // Creating new instance of the User Model.
     const user=new User(userObj);
@@ -41,3 +83,37 @@ app.post("/signup",async (req,res)=>{
         res.status(400).send("Error Saving the User :"+err.message);
     }
 });
+
+// Update an existing user
+
+app.patch("/user",async(req,res)=>{
+
+    const userId=req.body.userId;
+    const data=req.body;
+      try{
+        const user=  await User.findByIdAndUpdate({_id:userId},data,{returnDocument:'before'});
+        console.log(user);
+        res.send("User Updated Successfully...")
+      }
+      catch(err)
+      {
+            res.status(400).send("Something went wrong...")
+      }
+});
+
+// Delete an user
+
+app.delete("/user",async(req,res)=>{
+
+    const userId=req.body.userId;
+    try{
+         const deletedUser=  await User.findByIdAndDelete({_id:userId})
+         res.send("User deleted Successfully...")
+    }
+    catch(err)
+    {
+        res.status(400).send("Something went wrong...")
+    }
+     
+});
+

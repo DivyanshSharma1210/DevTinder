@@ -71,3 +71,24 @@
 - Push some `users` using `/signup` APi using Postman.
 - What is the Purpose of `_v` field in the Mongodb Collection.
 - Do Error Handling using `try`,`catch`.
+
+# Episode 5
+- What is the difference between `JSON` and a `JS Object`.
+
+# Sometimes we noticed that if we try send data from our API to the server in the form of `JSON` in `req.body` and if we try to `console.log(req.body)` then it gives us `undefined`. This is because our `server` not able to read that `JSON` data. So to solve this problem and to make our `server ` to read the data in `JSON` format we need the help of a `Middleware` which is given to us by `Express` itself and it is known as `express.json`.
+
+- What is the purpose of `express.json()`.
+- Working of `app.use(express.json())`.
+- Add the `express.json()` to your app.
+- Make your `/signup` API dynamic to recieve data from the End user or Client.
+- `User.findOne()` with duplicate `emailIDs` which object will returned.
+- Create an API - `Get user by Email`.
+- Create an API - `Feed API -> GET /feed -> get all the users from the database`.
+- Use `user.find({})` as well as `user.findOne({})`.
+- Create an API -> To `get` user by `_id`.
+- Create an API -> To `delete` user by `_id`.
+- Difference between `PATCH` and `PUT` HTTP method?
+- Create an API -> To `update` user by `_id`.
+- Explore the `mongoose Docs` dpecifically for `Schemas and Models methods`.
+- What are `options` in `Model.findByIdAndUpdate()` method, explore more about it.
+- Create an API -> To `update` an user by `emailID`.

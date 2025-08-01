@@ -107,3 +107,11 @@
 - Explore `Validator` functions. like: `validator.isEmail()`,`validator.isStrongPassword()` , `validator.isURL()`.
 - Never trust `req.body`.
 
+# Episode 7
+- Validate Data in `signUp` API.
+- Install `bcrypt` package in your project.
+- Create a `passwordHash` using `bcrypt.hash`.
+- And store `user's password` in `encrypted ` format in your Database.
+- Create a `/login` API .
+- Compare `passwords` and throw `error` if `email`  or `password` is invalid.
+

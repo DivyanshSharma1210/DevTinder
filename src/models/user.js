@@ -16,12 +16,10 @@ const userSchema=mongoose.Schema({
     },
     age:{
         type:Number,
-        required:true,
         min:18,
     },
     gender:{
         type:String,
-        required:true,
         validate(value)
         {
             if(!["male","female","others"].includes(value))

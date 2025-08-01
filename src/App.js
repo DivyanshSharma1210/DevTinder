@@ -1,6 +1,9 @@
 const express=require("express");
 const {connectDB}=require('./config/database.js');
 const User=require("./models/user.js");
+const {validateSignUpData}=require("./utils/validation.js");
+const validator=require("validator");
+const bcrypt=require("bcrypt");
 const app=express();
 
 const PORT=5555;
@@ -10,7 +13,7 @@ app.use(express.json())
 
 connectDB().then(()=>{
 
-    console.log("Database Connected Successfully...")
+    console.log("Database Connected Successfully...");
     app.listen(PORT,(req,res)=>{
         console.log(`Server is Successfully listening on PORT ${PORT}`);
     });
@@ -67,21 +70,81 @@ app.get("/user",async(req,res)=>{
 })
 // Add a new user
 app.post("/signup",async (req,res)=>{
-     
-    console.log(req.body);
-    const userObj={firstName,lastName,age,gender,emailID,password}=req.body;
-
-     // Creating new instance of the User Model.
-    const user=new User(userObj);
 
     try{
+
+    // Validation of the Data
+
+     validateSignUpData(req);
+
+     // Encrypt the Password and then store the Encrypted password into the database.
+    
+       let {password}=req.body;
+
+       let passwordHash=await bcrypt.hash(password,10)
+       console.log(passwordHash);
+        
+     const userObj={firstName,lastName,emailID,password}=req.body;
+ 
+     // Now assign or replace your password to passwordHash that is going to store in the database.
+
+          userObj.password=passwordHash;
+      // Creating new instance of the User Model.
+     const user=new User({
+        firstName,
+        lastName,
+        emailID,
+        password:passwordHash,
+     });
         await user.save();
     res.send("User Created Successfully...");
     }
     catch(err){
-        res.status(400).send("Error Saving the User :"+err.message);
+        res.status(400).send("Error : "+err.message);
     }
 });
+
+// Login API
+app.post('/login',async(req,res)=>{
+
+    try{
+
+    //Extracting user's emailID and password from req.body.
+
+    const {emailID,password}=req.body;
+
+     console.log(req.body);
+    if(!validator.isEmail(emailID))
+    {
+        throw new Error ("Please Enter Valid emailID...");
+    }
+
+    // Logic to validate user
+
+    const user=await User.findOne({emailID:emailID});
+    
+    console.log(user)
+    if(!user)
+    {
+        throw new Error("Invalid Credentials...")
+    }
+     const isPasswordValid=await bcrypt.compare(password,user.password);
+     if(isPasswordValid)
+     {
+        res.status(200).send("Login Successfull")
+     }
+     else
+     {
+        throw new Error("Invalid Credentials...")
+     }
+
+    }
+    catch(err){
+        res.status(400).send("ERROR : "+err.message)
+    }
+
+
+})
 
 // Update an existing user
 

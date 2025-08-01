@@ -8,7 +8,6 @@ const PORT=5555;
 // Middleware to convert incoming JSON to JS Object.
 app.use(express.json())
 
-
 connectDB().then(()=>{
 
     console.log("Database Connected Successfully...")
@@ -86,18 +85,32 @@ app.post("/signup",async (req,res)=>{
 
 // Update an existing user
 
-app.patch("/user",async(req,res)=>{
+app.patch("/user/:userId",async(req,res)=>{
 
-    const userId=req.body.userId;
+    const userId=req.params?.userId;
     const data=req.body;
+
       try{
-        const user=  await User.findByIdAndUpdate({_id:userId},data,{returnDocument:'before'});
+        const allowedUpdates=["photoUrl","about","gender","age","skills","password"];
+
+    const isUpdateAllowed= Object.keys(data).every((k)=>{
+        return  allowedUpdates.includes(k);
+      });
+    if(!isUpdateAllowed)
+    {
+       throw new Error("Update not Allowed.");
+    }
+    if(data?.skills.length>10)
+    {
+        throw new Error("Skills cannot be more than 10.")
+    }
+        const user=  await User.findByIdAndUpdate({_id:userId},data,{returnDocument:'before',runValidators:true});
         console.log(user);
         res.send("User Updated Successfully...")
       }
       catch(err)
       {
-            res.status(400).send("Something went wrong...")
+            res.status(400).send("UPDATE FAILED :"+err.message)
       }
 });
 
@@ -116,4 +129,3 @@ app.delete("/user",async(req,res)=>{
     }
      
 });
-

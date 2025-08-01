@@ -92,3 +92,18 @@
 - Explore the `mongoose Docs` dpecifically for `Schemas and Models methods`.
 - What are `options` in `Model.findByIdAndUpdate()` method, explore more about it.
 - Create an API -> To `update` an user by `emailID`.
+
+
+# Episode 6
+- Explore Schema Type `options` from the Documentation.
+- Add `required`,`unique`,`minLength`,`maxLength`,`min`,`max`,`default`.
+- How to add a Custom `Validator` function in your `Schemas` for `gender`.
+- By `default` `validators` will only run if there is new user created in the database.
+- Improve the DB Schema - PUT all appropriate validations on each field in Schema.
+- Add `timestamps ` to the `user ` schema.
+- Add `API level Validations on PATCH and POST API`.
+- `Data Sanitization` -> Add `API validations ` for each field.
+- Install `Validator` package in your Project.
+- Explore `Validator` functions. like: `validator.isEmail()`,`validator.isStrongPassword()` , `validator.isURL()`.
+- Never trust `req.body`.
+

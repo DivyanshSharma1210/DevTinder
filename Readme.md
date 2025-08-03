@@ -115,3 +115,15 @@
 - Create a `/login` API .
 - Compare `passwords` and throw `error` if `email`  or `password` is invalid.
 
+# Episode 8
+- What is `JWT` Token.
+- What is the purpose of `JWT` tokens.
+- What are `cookies`.
+- In order to read the cookie we need a middleware or we can say that a package which is known as `cookie-parser`.
+- Install `cookie-parser` in your Project.
+- Just send a `dummy cookie` to the user.
+- create a `GET /profile` API and check if you get the cookie back or not.
+- Install `jsonwebtoken` in your Project.
+- In `/login` API , after `email, password` validation create a `JWT token ` and send it back to the user inside cookie.
+- Read the cookies inside your `/profile` API and find the `logged In User`.
+

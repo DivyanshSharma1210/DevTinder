@@ -4,12 +4,18 @@ const User=require("./models/user.js");
 const {validateSignUpData}=require("./utils/validation.js");
 const validator=require("validator");
 const bcrypt=require("bcrypt");
+const cookieParser=require("cookie-parser");
+const jwt=require("jsonwebtoken");
+const {userAuth}=require("./middlewares/userAuth.js")
 const app=express();
 
 const PORT=5555;
 
 // Middleware to convert incoming JSON to JS Object.
-app.use(express.json())
+app.use(express.json());
+
+// Middleware to parse cookies:
+app.use(cookieParser()); 
 
 connectDB().then(()=>{
 
@@ -23,7 +29,7 @@ connectDB().then(()=>{
 });
 //  Feed API => GET /feed => Fetch all users from the Database
 
-app.get("/feed",async(req,res)=>{
+app.get("/feed",userAuth,async(req,res)=>{
 
     try{
         const feed=await User.find({});
@@ -43,10 +49,41 @@ app.get("/feed",async(req,res)=>{
     }
     
 })
+// get Profile
 
+app.get("/profile",userAuth,async(req,res)=>{
+
+    try{
+        const cookies=req.cookies;
+    
+    const {token}=cookies;
+
+    //Check whether the Token is present or not
+    if(!token)
+    {
+        throw new Error("Invalid Token...")
+    }
+    // Validate the Token
+
+    const decodedMessage=await jwt.verify(token,"DEV@TINDER$790");
+
+    const {_id}=decodedMessage;
+
+    const user=await User.findById(_id);
+    if(!user)
+    {
+        throw new Error("Please Login Again...");
+    }
+    res.status(200).send(user);
+    }
+    catch(err)
+    {
+        res.status(400).send("ERROR : "+err.message);
+    }
+})
 // Get user by emailID
 
-app.get("/user",async(req,res)=>{
+app.get("/user",userAuth,async(req,res)=>{
 
     const userEmail=req.body.emailID;
 
@@ -69,7 +106,7 @@ app.get("/user",async(req,res)=>{
 
 })
 // Add a new user
-app.post("/signup",async (req,res)=>{
+app.post("/signup",userAuth,async (req,res)=>{
 
     try{
 
@@ -105,7 +142,7 @@ app.post("/signup",async (req,res)=>{
 });
 
 // Login API
-app.post('/login',async(req,res)=>{
+app.post('/login',userAuth,async(req,res)=>{
 
     try{
 
@@ -113,7 +150,7 @@ app.post('/login',async(req,res)=>{
 
     const {emailID,password}=req.body;
 
-     console.log(req.body);
+    //  console.log(req.body);
     if(!validator.isEmail(emailID))
     {
         throw new Error ("Please Enter Valid emailID...");
@@ -123,7 +160,7 @@ app.post('/login',async(req,res)=>{
 
     const user=await User.findOne({emailID:emailID});
     
-    console.log(user)
+    // console.log(user)
     if(!user)
     {
         throw new Error("Invalid Credentials...")
@@ -131,6 +168,14 @@ app.post('/login',async(req,res)=>{
      const isPasswordValid=await bcrypt.compare(password,user.password);
      if(isPasswordValid)
      {
+
+        // Create a JWT Token
+      const token=await jwt.sign({_id:user._id},"DEV@TINDER$790");
+      console.log(token);
+
+        // Add the JWT token inside cookie and send the response back to the user.
+
+        res.cookie("token",token);
         res.status(200).send("Login Successfull")
      }
      else
@@ -148,7 +193,7 @@ app.post('/login',async(req,res)=>{
 
 // Update an existing user
 
-app.patch("/user/:userId",async(req,res)=>{
+app.patch("/user/:userId",userAuth,async(req,res)=>{
 
     const userId=req.params?.userId;
     const data=req.body;
@@ -179,7 +224,7 @@ app.patch("/user/:userId",async(req,res)=>{
 
 // Delete an user
 
-app.delete("/user",async(req,res)=>{
+app.delete("/user",userAuth,async(req,res)=>{
 
     const userId=req.body.userId;
     try{

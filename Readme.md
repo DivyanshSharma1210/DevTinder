@@ -126,4 +126,17 @@
 - Install `jsonwebtoken` in your Project.
 - In `/login` API , after `email, password` validation create a `JWT token ` and send it back to the user inside cookie.
 - Read the cookies inside your `/profile` API and find the `logged In User`.
+- Write `userAuth` Middleware.
+- Add the `userAuth` Middleware in the `/profile` API and `/sendConnectionRequest` API .
+- Set the `Expiry` of `JWT Token` and `Cookies` to `7` days.
+
+
+- Go and Explore Tinder APIs.
+- Create a list of  all `Apis` you need in your Application.
+- Group multiple Routes under respective `Routers`.
+- Read the `express docs` for `express.Router()`.
+- Create a `routes ` folder for managing `auth` ,`profile` ,`request`, `user` routers.
+- Create `authRouter`,`profileRouter`,`requestRouter`,`userrouter`...
+- Import or require these `Routers` in your `App.js`.
+- And then use these `Routers` in your `App.js` as a Middleware.
 

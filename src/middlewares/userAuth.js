@@ -15,7 +15,7 @@ const userAuth=async(req,res,next)=>{
      // Check whether the token is present or not
       if(!token)
       {
-          throw new Error("Please Login Again...")
+          throw new Error("Invalid Token!!! , Please Login Again...");
       }
  
       // Validate the Token
@@ -30,8 +30,9 @@ const userAuth=async(req,res,next)=>{
  
       if(!user)
       {
-         throw new Error("User not found...")
+         throw new Error("User not found...");
       }
+      req.user=user;  // Attach user to the request object...
        next();
    }
    catch(err)

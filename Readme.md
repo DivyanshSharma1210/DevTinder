@@ -139,4 +139,9 @@
 - Create `authRouter`,`profileRouter`,`requestRouter`,`userrouter`...
 - Import or require these `Routers` in your `App.js`.
 - And then use these `Routers` in your `App.js` as a Middleware.
+- What is `Express Chaining`.
+- Create POST `/logout` API .
+- Create PATCH `/profile/edit` API.
+- Create a PATCH `/profile/password` API => Forgot Password API
+- Make sure you `validate` all data in every `POST` , `PATCH` APIs...
 

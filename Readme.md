@@ -130,7 +130,7 @@
 - Add the `userAuth` Middleware in the `/profile` API and `/sendConnectionRequest` API .
 - Set the `Expiry` of `JWT Token` and `Cookies` to `7` days.
 
-
+ # Episode 10
 - Go and Explore Tinder APIs.
 - Create a list of  all `Apis` you need in your Application.
 - Group multiple Routes under respective `Routers`.
@@ -144,4 +144,26 @@
 - Create PATCH `/profile/edit` API.
 - Create a PATCH `/profile/password` API => Forgot Password API
 - Make sure you `validate` all data in every `POST` , `PATCH` APIs...
+
+# Episode 11
+- Create a `connectionRequest` Schema.
+- Add proper Validations to your Schema.
+- Create POST `connection/request` API.
+- Proper Validation of your Data.
+- Think about all Corner cases.
+- Read more about `$or` and `$and` and `$not ` and `$nor` queries in mongoose.
+- Read more about `Schema.pre("save")` function.
+# Read this Article for Compound Indexes : `https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/`.
+
+# Why we should not make each field as an `index` in your Database.
+
+- What are `Compund Indexes`.
+- Read more about `Indexes` in `MongoDb`.
+- Why do we need an `Index`.
+- What are the `Advantages` and `DisAdvantages` of creating `Indexes`.
+
+- Read this article for mongoDb `queries` : `https://www.mongodb.com/docs/manual/reference/operator/query-comparison/`
+- Always think about `Corner cases`.
+
+
 

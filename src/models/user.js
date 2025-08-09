@@ -7,6 +7,7 @@ const userSchema=mongoose.Schema({
 
         type:String,
         required:true,
+        index:true,
         minLength:4,
         maxLength:50,
     },
@@ -79,6 +80,9 @@ const userSchema=mongoose.Schema({
 
     }
 },{timestamps:true});
+
+// Compund Index for fast Querying
+userSchema.index({firstName:1,lastName:1});
 
 const User=mongoose.model("User",userSchema);
 

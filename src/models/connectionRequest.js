@@ -6,12 +6,14 @@ const connectionRequestSchema=new mongoose.Schema({
     fromUserId:
     {
         type:mongoose.Schema.Types.ObjectId,
+        ref:"User", // refernce to the user collection...
         required:true,
         index:true
     },
     toUserId:
     {
       type:mongoose.Schema.Types.ObjectId,
+      ref:"User",   // reference to the User Collection
       required:true,
       index:true
     },

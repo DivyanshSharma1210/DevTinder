@@ -166,4 +166,12 @@
 - Always think about `Corner cases`.
 
 
+# Episode 12
+- Write code with proper validations for POST `/request/review/:status/:requestId` API.
+- `POST Vs GET ` API Thought Process.
+- Read more about `ref` and `populate` : `https://mongoosejs.com/docs/populate.html`
+- Create GET `/user/request/received` API  with all the checks.
+- Create GET `/user/connections` API with all the checks.
+
+
 

@@ -174,4 +174,17 @@
 - Create GET `/user/connections` API with all the checks.
 
 
+# Episode 13
+- Create a GET `/user/feed` API.
+- Explore the `$nin ,$ne,$and,$or` and so on ....
+- What is `Pagination`.
+
+`/feed?page=1&limit=10 --> first 10 users 1-10` --------------------> skip(0) & limit(10)
+`/feed?page=2&limit=10 --> next 10 users 11-20` ----------------------> skip(10) & limit(10)
+`/feed?page=3&limit=10 --> next 10 users 21-30` -----------------------> skip(20) & limit(10)
+ and so on...
+
+- In mongoDb we have two very important functions to apply Pagination and these are : `skip()` , `limit()`.
+
+- To implement `skip()` we need a formula which is :`skip= (page-1)*limit`
 

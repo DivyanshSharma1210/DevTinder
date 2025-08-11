@@ -138,4 +138,63 @@ userRouter.get('/user/connections',userAuth,async (req,res)=>{
         res.status(400).send("Error : ",err)
     }
 });
+
+// GET /user/feed => Gets you the Profiles of the other users on platform
+
+userRouter.get("/user/feed",userAuth,async (req,res)=>{
+
+    try{
+        if(parseInt(req.query.limit)>10)
+        {
+            return res.status(400).json({message:"limit should be less than 10 only..."});
+        }
+        // These page and limit that we fetch from params are in String so we need to parse it to Int.
+        const page=parseInt(req.query.page)||1;
+        let limit=parseInt(req.query.limit)||10;
+        limit=limit>50?50:limit;
+        let skip=(page-1)*limit;
+
+        
+        // User should see all the other user cards except
+        // 0. His own card
+        // 1. His connections
+        // 2. ignored people
+        // 3. already sent the connection Request...
+
+        const loggedInUser=req.user;
+
+        // Find all the connection Requests that either I have sent or I have received
+        const connectionRequest=await ConnectionRequest.find(
+            {
+                $or:[
+                    
+                    {fromUserId:loggedInUser._id},
+                    {toUserId:loggedInUser._id}
+                ]
+            }
+        ).select("fromUserId toUserId")
+
+        const hideUsersFromFeed=new Set();
+
+        connectionRequest.forEach((request) => {
+
+            hideUsersFromFeed.add(request.fromUserId.toString());
+            hideUsersFromFeed.add(request.toUserId.toString());
+            
+        });
+
+        const users=await User.find(
+            {
+               $and:[{ _id:{$nin : Array.from(hideUsersFromFeed)}},{_id:{$ne:loggedInUser._id}}]
+            }
+        ).select("firstName lastName photoUrl age skills gender about").skip(skip).limit(limit); 
+
+        res.send(users);
+
+    }
+    catch(err)
+    {
+        res.status(400).send("Error : "+err.message);
+    }
+})
 module.exports=userRouter;

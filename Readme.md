@@ -1,190 +1,192 @@
-# Episode 1
+# DevTinder Backend — Learning Journey 📚💻
+
+This repository documents my complete learning journey while building **DevTinder**, a backend project where developers can connect, collaborate, and work on projects together.  
+Through this project, I explored **Node.js**, **Express**, **MongoDB**, authentication, middleware, validation, and other backend essentials.  
+
+The content is organized into **episodes**, each focusing on specific concepts, implementation steps, and practice exercises.
+
+---
+
+## 📑 Table of Contents
+- [Episode 1 — Project Setup & Basics](#episode-1)
+- [Episode 2 — Git & Routing](#episode-2)
+- [Episode 3 — Middleware & Request Handling](#episode-3)
+- [Episode 4 — MongoDB Setup & User Signup](#episode-4)
+- [Episode 5 — Express JSON Middleware](#episode-5)
+- [Episode 6 — Schema Validations](#episode-6)
+- [Episode 7 — Password Hashing & Login](#episode-7)
+- [Episode 8 — JWT & Cookies](#episode-8)
+- [Episode 10 — Routers & Profile Management](#episode-10)
+- [Episode 11 — Connection Requests & Indexing](#episode-11)
+- [Episode 12 — Request Review & Populate](#episode-12)
+- [Episode 13 — Feed API & Pagination](#episode-13)
+
+---
+
+## Episode 1 — Project Setup & Basics
 
 - Create a Repository
 - Initialize the Repository
-- `node_modules` , `package.json` , `package-lock.json`
-- Install Express
-- Create a Server
-- Listen to PORT 5555
-- Write Request Handlers for `/test` , `/hello`
-- Install `nodemon` and update scripts inside `package.json`
-- Difference between `Caret ` and `Tilde` in Semantic Versioning.
-- What is `Semantic Versioning`
-- What are `Dependencies`
-- What are `Transitive Dependencies`
-- What is the role of `-g` while `npm install`
-- What is the role of `.bin` folder inside `node_modules`. And what it contains...
+- Understand `node_modules`, `package.json`, `package-lock.json`
+- Install **Express**
+- Create a server and listen on **PORT 5555**
+- Write request handlers for `/test` and `/hello`
+- Install **nodemon** & update scripts in `package.json`
+- Learn difference between **Caret (^)** and **Tilde (~)** in Semantic Versioning
+- What is **Semantic Versioning**
+- What are **Dependencies** & **Transitive Dependencies**
+- Role of `-g` in `npm install`
+- Purpose of `.bin` folder inside `node_modules`
 
-# Episode 2
+---
 
-- Initialize `git` into your Project.
-- Create a `.gitignore` file and add `node_modules` folder to it.
-- Create a remote repository on `github`.
-- Push all your code to remote origin.
-- Play with Routes and Route Extensions. eg: `/hello` , `/hello/2`, `/xyz` and so on...
-- Order of `Routes` matter a lot.
-- Install Postman App make a `workspace/collection` -> test API call.
-- Write Logic to handle `GET` `POST` `PATCH` `PUT` `DELETE` API calls and test them on Postman.
-- Explore Different Types of Routing and use of `?`,`+`,`*`,`()` in the Routes.
-- Use of `regex` in routes like : `/a/`,`/.*fly$`.
-- Reading the `query params` in the routes.
-- Practice Handling `Dynamic` Routes.
+## Episode 2 — Git & Routing
 
-# Episode 3
+- Initialize Git in the project
+- Create `.gitignore` file and add `node_modules`
+- Create a remote repository on GitHub and push code
+- Play with routes and route extensions (`/hello`, `/hello/2`, `/xyz`)
+- Understand that **route order matters**
+- Install **Postman** and create workspace/collection
+- Handle GET, POST, PATCH, PUT, DELETE API calls
+- Explore different types of routing and route patterns (`?`, `+`, `*`, `()`)
+- Use regex in routes (`/a/`, `/.*fly$`)
+- Read query parameters in routes
+- Practice dynamic routes
 
-# If we don't send response back to the client then the request will be left hanging.
-# If we have multiple route handlers and if we want to call or execute other route handlers using next and if we send back the reponse in every route handler then in that case the response of the first route handler will sent back to the client and along with that a error is also thrown in the console as shown below:\
+---
 
-`Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client`
+## Episode 3 — Middleware & Request Handling
 
-- Multiple Route Handlers - Play with the code.
-- What the hell is `next()` function in route  Handler.
-- `next()` function with errors along with `res.send`.
-- You have to Practice the below syntax:
-- ` app.use("/route",rh1,rh2,rh3,rh4,rh5)`.
-- ` app.use("/route",[rh1,rh2,rh3,rh4,rh5])`.
-- ` app.use("/route",[rh1,rh2,rh3,rh4],rh5)`.
-- ` app.use("/route",[rh1,rh2,rh3],rh4,rh5)`.
-- ` app.use("/route",[rh1,rh2],rh3,rh4,rh5)`.
-- ` app.use("/route",[rh1],rh2,rh3,rh4,rh5)`.
-- What is a `Route Hander`?
-- What is a `Middleware`? Why do we need it?
-- How Express JS basically handles requests behind the scenes?
-- Difference between `Route Handler` and a `Middleware`.
+> **Note:** If you don’t send a response back to the client, the request will hang.  
+> Sending a response in one handler and calling `next()` can cause:  
+> `Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client`
 
-# By default `res.send()` sends 200 as a status code if you want to send other status code you can set it using `res.status`.
+- Work with multiple route handlers
+- Understand `next()` function
+- Use `next()` with errors and `res.send`
+- Practice syntax variations with `app.use()` and multiple handlers
+- Learn the difference between **Route Handler** and **Middleware**
+- By default, `res.send()` sends status code 200; set custom codes with `res.status()`
+- Use cases of `app.all()` vs `app.use()`
+- Write dummy `auth` middleware for admin and for all user routes except `/user/login`
+- Error handling with `app.use('/', (err, req, res, next) => {})`
 
-- What is the use case of `app.all()`?
-- What is the use case of `app.use()`?
-- What is the Difference between `app.use()` and `app.all()`?
-- Write a dummy `auth` middleware for `admin`?
-- Write a dummy `auth` middleware for all `user` routes except `/user/login`?
-- Error Handling using `app.use('/',(err,req,res,next)=>{});`.
+---
 
-# Episode 4
-- Create a free`clutser` on the official `MongoDB` Website.
-- Install `mongoose` library.
-- Connect your Application to the Database `"Connection-url"/DevTinder`.
-- Call the `ConnectDb` function and connect to database before Starting application on `PORT`.
-- Create a `userSchema` and `User` Model.
-- Create a `POST` `/signup` route to add user data to the Database.
-- Push some `users` using `/signup` APi using Postman.
-- What is the Purpose of `_v` field in the Mongodb Collection.
-- Do Error Handling using `try`,`catch`.
+## Episode 4 — MongoDB Setup & User Signup
 
-# Episode 5
-- What is the difference between `JSON` and a `JS Object`.
+- Create free MongoDB cluster
+- Install **mongoose**
+- Connect to DB before starting server
+- Create `userSchema` and `User` model
+- Create `/signup` POST API
+- Test inserting users via Postman
+- Learn about `_v` field in MongoDB
+- Error handling with try-catch
 
-# Sometimes we noticed that if we try send data from our API to the server in the form of `JSON` in `req.body` and if we try to `console.log(req.body)` then it gives us `undefined`. This is because our `server` not able to read that `JSON` data. So to solve this problem and to make our `server ` to read the data in `JSON` format we need the help of a `Middleware` which is given to us by `Express` itself and it is known as `express.json`.
+---
 
-- What is the purpose of `express.json()`.
-- Working of `app.use(express.json())`.
-- Add the `express.json()` to your app.
-- Make your `/signup` API dynamic to recieve data from the End user or Client.
-- `User.findOne()` with duplicate `emailIDs` which object will returned.
-- Create an API - `Get user by Email`.
-- Create an API - `Feed API -> GET /feed -> get all the users from the database`.
-- Use `user.find({})` as well as `user.findOne({})`.
-- Create an API -> To `get` user by `_id`.
-- Create an API -> To `delete` user by `_id`.
-- Difference between `PATCH` and `PUT` HTTP method?
-- Create an API -> To `update` user by `_id`.
-- Explore the `mongoose Docs` dpecifically for `Schemas and Models methods`.
-- What are `options` in `Model.findByIdAndUpdate()` method, explore more about it.
-- Create an API -> To `update` an user by `emailID`.
+## Episode 5 — Express JSON Middleware
 
+- Difference between JSON and JS Object
+- Why `req.body` is `undefined` without `express.json()`
+- Purpose of `express.json()` middleware
+- Make `/signup` API dynamic
+- Use `User.findOne()` with duplicate emails
+- Create APIs:
+  - Get user by email
+  - Feed API: GET `/feed` (get all users)
+  - Get user by `_id`
+  - Delete user by `_id`
+  - Update user by `_id` or `emailID`
+- Difference between PATCH & PUT
+- Explore `mongoose` docs for schema/model methods
+- Learn about options in `findByIdAndUpdate()`
 
-# Episode 6
-- Explore Schema Type `options` from the Documentation.
-- Add `required`,`unique`,`minLength`,`maxLength`,`min`,`max`,`default`.
-- How to add a Custom `Validator` function in your `Schemas` for `gender`.
-- By `default` `validators` will only run if there is new user created in the database.
-- Improve the DB Schema - PUT all appropriate validations on each field in Schema.
-- Add `timestamps ` to the `user ` schema.
-- Add `API level Validations on PATCH and POST API`.
-- `Data Sanitization` -> Add `API validations ` for each field.
-- Install `Validator` package in your Project.
-- Explore `Validator` functions. like: `validator.isEmail()`,`validator.isStrongPassword()` , `validator.isURL()`.
-- Never trust `req.body`.
+---
 
-# Episode 7
-- Validate Data in `signUp` API.
-- Install `bcrypt` package in your project.
-- Create a `passwordHash` using `bcrypt.hash`.
-- And store `user's password` in `encrypted ` format in your Database.
-- Create a `/login` API .
-- Compare `passwords` and throw `error` if `email`  or `password` is invalid.
+## Episode 6 — Schema Validations
 
-# Episode 8
-- What is `JWT` Token.
-- What is the purpose of `JWT` tokens.
-- What are `cookies`.
-- In order to read the cookie we need a middleware or we can say that a package which is known as `cookie-parser`.
-- Install `cookie-parser` in your Project.
-- Just send a `dummy cookie` to the user.
-- create a `GET /profile` API and check if you get the cookie back or not.
-- Install `jsonwebtoken` in your Project.
-- In `/login` API , after `email, password` validation create a `JWT token ` and send it back to the user inside cookie.
-- Read the cookies inside your `/profile` API and find the `logged In User`.
-- Write `userAuth` Middleware.
-- Add the `userAuth` Middleware in the `/profile` API and `/sendConnectionRequest` API .
-- Set the `Expiry` of `JWT Token` and `Cookies` to `7` days.
+- Explore schema type options
+- Add validations: `required`, `unique`, `minLength`, `maxLength`, etc.
+- Custom validator for gender
+- Add timestamps to schema
+- API-level validations for POST & PATCH
+- Data sanitization
+- Install **validator** package and use functions like:
+  - `validator.isEmail()`
+  - `validator.isStrongPassword()`
+  - `validator.isURL()`
 
- # Episode 10
-- Go and Explore Tinder APIs.
-- Create a list of  all `Apis` you need in your Application.
-- Group multiple Routes under respective `Routers`.
-- Read the `express docs` for `express.Router()`.
-- Create a `routes ` folder for managing `auth` ,`profile` ,`request`, `user` routers.
-- Create `authRouter`,`profileRouter`,`requestRouter`,`userrouter`...
-- Import or require these `Routers` in your `App.js`.
-- And then use these `Routers` in your `App.js` as a Middleware.
-- What is `Express Chaining`.
-- Create POST `/logout` API .
-- Create PATCH `/profile/edit` API.
-- Create a PATCH `/profile/password` API => Forgot Password API
-- Make sure you `validate` all data in every `POST` , `PATCH` APIs...
+---
 
-# Episode 11
-- Create a `connectionRequest` Schema.
-- Add proper Validations to your Schema.
-- Create POST `connection/request` API.
-- Proper Validation of your Data.
-- Think about all Corner cases.
-- Read more about `$or` and `$and` and `$not ` and `$nor` queries in mongoose.
-- Read more about `Schema.pre("save")` function.
-# Read this Article for Compound Indexes : `https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/`.
+## Episode 7 — Password Hashing & Login
 
-# Why we should not make each field as an `index` in your Database.
+- Validate signup data
+- Install **bcrypt**
+- Hash passwords before storing
+- Create `/login` API
+- Compare passwords and handle invalid credentials
 
-- What are `Compund Indexes`.
-- Read more about `Indexes` in `MongoDb`.
-- Why do we need an `Index`.
-- What are the `Advantages` and `DisAdvantages` of creating `Indexes`.
+---
 
-- Read this article for mongoDb `queries` : `https://www.mongodb.com/docs/manual/reference/operator/query-comparison/`
-- Always think about `Corner cases`.
+## Episode 8 — JWT & Cookies
 
+- Learn about JWT tokens & cookies
+- Install **cookie-parser** and **jsonwebtoken**
+- Send dummy cookie to user
+- Create `/profile` API and read cookies
+- Generate JWT token on login and store in cookie
+- Create `userAuth` middleware
+- Apply `userAuth` to protected routes
+- Set JWT & cookie expiry to 7 days
 
-# Episode 12
-- Write code with proper validations for POST `/request/review/:status/:requestId` API.
-- `POST Vs GET ` API Thought Process.
-- Read more about `ref` and `populate` : `https://mongoosejs.com/docs/populate.html`
-- Create GET `/user/request/received` API  with all the checks.
-- Create GET `/user/connections` API with all the checks.
+---
 
+## Episode 10 — Routers & Profile Management
 
-# Episode 13
-- Create a GET `/user/feed` API.
-- Explore the `$nin ,$ne,$and,$or` and so on ....
-- What is `Pagination`.
+- Explore Tinder APIs
+- Group routes under routers: `authRouter`, `profileRouter`, `requestRouter`, `userRouter`
+- Import routers in `app.js` and use as middleware
+- Create `/logout`, `/profile/edit`, `/profile/password` APIs
+- Validate all incoming data
 
-`/feed?page=1&limit=10 --> first 10 users 1-10` --------------------> skip(0) & limit(10)
-`/feed?page=2&limit=10 --> next 10 users 11-20` ----------------------> skip(10) & limit(10)
-`/feed?page=3&limit=10 --> next 10 users 21-30` -----------------------> skip(20) & limit(10)
- and so on...
+---
 
-- In mongoDb we have two very important functions to apply Pagination and these are : `skip()` , `limit()`.
+## Episode 11 — Connection Requests & Indexing
 
-- To implement `skip()` we need a formula which is :`skip= (page-1)*limit`
+- Create `connectionRequest` schema with validations
+- POST `/connection/request` API with validations
+- Learn about `$or`, `$and`, `$not`, `$nor` in Mongoose
+- Explore `Schema.pre("save")`
+- Read about compound indexes and indexing best practices
+- Understand pros & cons of indexes
 
+---
+
+## Episode 12 — Request Review & Populate
+
+- POST `/request/review/:status/:requestId` API
+- Learn POST vs GET thought process
+- Use `ref` and `populate`
+- GET `/user/request/received` API with checks
+- GET `/user/connections` API with checks
+
+---
+
+## Episode 13 — Feed API & Pagination
+
+- Create GET `/user/feed` API
+- Explore `$nin`, `$ne`, `$and`, `$or` queries
+- Learn about pagination
+- Formula for skip: `skip = (page - 1) * limit`
+- Use `skip()` and `limit()` in MongoDB
+
+---
+
+## 📌 Summary
+This repository is more than just code — it’s a complete backend learning roadmap for **Node.js + Express + MongoDB**.  
+From basic routing to advanced authentication and database optimization, each episode builds on the last, ensuring a strong understanding of backend development.
+
+---
